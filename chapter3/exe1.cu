@@ -50,7 +50,7 @@ int main() {
 
     float *M_h = new float[size], *N_h = new float[size], *P_h = new float[size];
     
-    float *M_d = new float[size], *N_d = new float[size], *P_d = new float[size];
+    float *M_d, *N_d, *P_d;
     
     for (int i = 0; i < size; ++i) {
         M_h[i] = static_cast<float>(i), N_h[i] = static_cast<float>(i);
@@ -63,7 +63,7 @@ int main() {
     int threadsPerBlock = 4;
     int numBlocks = static_cast<int>(ceil(width / static_cast<float>(threadsPerBlock)));
 
-    thread_2_row<<<numBlocks, threadsPerBlock>>>(M_d, N_d, P_d, width); // dimGrid(1,1,numBlocks)  dimBlock(1,1,threadsPerBlock>) 
+    thread_2_row<<<numBlocks, threadsPerBlock>>>(M_d, N_d, P_d, width); // dimGrid(numBlocks, 1, 1)  dimBlock(threadsPerBlock, 1, 1>) 
     //thread_2_col<<<numBlocks, threadsPerBlock>>>(M_d, N_d, P_d, width);
 
 
